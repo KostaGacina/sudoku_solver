@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 def load_board(filename: str) -> np.ndarray:
@@ -52,8 +53,20 @@ def get_first_empty_cell(board: np.ndarray) -> tuple[int, int] | None:
     return None
 
 
-board = load_board("./puzzles/puzzle1.txt")
-# print_board(board)
+def load_boards_csv(filename):
+    boards = []
+    dataset = pd.read_csv(filename)
+    df = pd.DataFrame(dataset)
+    boards2 = df["quizzes"].values
+    for board in boards2:
+        array_9x9 = np.array([int(c) for c in board]).reshape((9, 9))
+        boards.append(array_9x9)
+
+    return np.array(boards)
+
+
+# board = load_boards_csv("./puzzles/easy.csv")
+# print_board(board[0])
 # if is_valid(board, 0, 2, 4):
 #    print("can be placed")
 # else:
