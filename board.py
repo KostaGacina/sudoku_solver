@@ -25,7 +25,7 @@ def print_board(board: np.ndarray) -> None:
 def is_valid(board: np.ndarray, row: int, col: int, num: int) -> bool:
     if num in board[row, :]:
         return False
-    if num in board[col, :]:
+    if num in board[:, col]:
         return False
 
     box_row, box_col = 3 * (row // 3), 3 * (col // 3)
@@ -44,7 +44,15 @@ def get_empty_cells(board: np.ndarray) -> list[tuple[int, int]]:
     return [(i, j) for i in range(9) for j in range(9) if board[i, j] == 0]
 
 
-board = load_board("./puzzle1.txt")
+def get_first_empty_cell(board: np.ndarray) -> tuple[int, int] | None:
+    for i in range(9):
+        for j in range(9):
+            if board[i, j] == 0:
+                return i, j  # row, col
+    return None
+
+
+board = load_board("./puzzles/puzzle1.txt")
 # print_board(board)
 # if is_valid(board, 0, 2, 4):
 #    print("can be placed")
