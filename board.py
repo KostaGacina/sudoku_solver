@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 def load_board(filename: str) -> np.ndarray:
@@ -25,7 +26,7 @@ def print_board(board: np.ndarray) -> None:
 def is_valid(board: np.ndarray, row: int, col: int, num: int) -> bool:
     if num in board[row, :]:
         return False
-    if num in board[col, :]:
+    if num in board[:, col]:
         return False
 
     box_row, box_col = 3 * (row // 3), 3 * (col // 3)
@@ -44,8 +45,28 @@ def get_empty_cells(board: np.ndarray) -> list[tuple[int, int]]:
     return [(i, j) for i in range(9) for j in range(9) if board[i, j] == 0]
 
 
-board = load_board("./puzzle1.txt")
-# print_board(board)
+def get_first_empty_cell(board: np.ndarray) -> tuple[int, int] | None:
+    for i in range(9):
+        for j in range(9):
+            if board[i, j] == 0:
+                return i, j  # row, col
+    return None
+
+
+def load_boards_csv(filename):
+    boards = []
+    dataset = pd.read_csv(filename)
+    df = pd.DataFrame(dataset)
+    boards2 = df["quizzes"].values
+    for board in boards2:
+        array_9x9 = np.array([int(c) for c in board]).reshape((9, 9))
+        boards.append(array_9x9)
+
+    return np.array(boards)
+
+
+# board = load_boards_csv("./puzzles/easy.csv")
+# print_board(board[0])
 # if is_valid(board, 0, 2, 4):
 #    print("can be placed")
 # else:
