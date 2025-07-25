@@ -2,6 +2,17 @@ import numpy as np
 import pandas as pd
 
 
+# create class to represent steps taken to solve the board
+class Step:
+    def __init__(self, row: int, col: int, num: int):
+        self.row = row
+        self.col = col
+        self.num = num
+
+    def __repr__(self):
+        return f"Step(row={self.row}, col={self.col}, num={self.num})"
+
+
 def load_board(filename: str) -> np.ndarray:
     with open(filename, "r") as f:
         lines = [list(map(int, line.strip())) for line in f if line.strip()]
