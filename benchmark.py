@@ -74,6 +74,3 @@ print(
         tablefmt="fancy_grid",
     )
 )
-# print steps example
-print(Fore.YELLOW + "\nExample Steps for Easy Boards:" + Style.RESET_ALL)
-print(all_steps[0])
