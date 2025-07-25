@@ -19,17 +19,20 @@ board_sets = [
     ("hard", hard_boards),
 ]
 results = []
+all_steps = []
 
 
 def benchmark_backtracking(boards, label=""):
     times = []
+    steps = []
     for board in boards:
         start = time.time()
-        solve_backtrack(board)
+        solve_backtrack(board, steps)
         end = time.time()
         times.append(end - start)
     avg = np.mean(times)
     results.append((label, "Backtracking", f"{avg:.6f}"))
+    all_steps.append(steps)
 
 
 def benchmark_forward_check(boards, label=""):
@@ -62,6 +65,7 @@ for thread in threads:
 difficulty_order = {"easy": 0, "medium": 1, "hard": 2}
 results.sort(key=lambda x: (difficulty_order[x[0]], x[1]))
 
+
 print(Fore.CYAN + "\nSUDOKU SOLVER BENCHMARK RESULTS\n" + Style.RESET_ALL)
 print(
     tabulate(
@@ -70,3 +74,6 @@ print(
         tablefmt="fancy_grid",
     )
 )
+# print steps example
+print(Fore.YELLOW + "\nExample Steps for Easy Boards:" + Style.RESET_ALL)
+print(all_steps[0])
