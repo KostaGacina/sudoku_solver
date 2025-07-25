@@ -2,7 +2,7 @@ import copy
 
 import numpy as np
 
-from board import is_valid
+from board import Step, is_valid, load_boards_csv
 
 
 def get_peers(row: int, col: int) -> set[tuple[int, int]]:
@@ -76,7 +76,7 @@ def forward_check(domains, row, col, value):
 
 
 def solve_forward_check(
-    board: np.ndarray, domains: dict[tuple[int, int], set[int]]
+    board: np.ndarray, domains: dict[tuple[int, int], set[int]], steps
 ) -> bool:
     """
     The recursive search:
@@ -96,10 +96,19 @@ def solve_forward_check(
     for val in sorted(domains[(r, c)]):
         if is_valid(board, r, c, val):
             board[r, c] = val
+            steps.append(Step(r, c, val))
             pruned = forward_check(domains, r, c, val)
             if pruned is not None:
-                if solve_forward_check(board, pruned):
+                if solve_forward_check(board, pruned, steps):
                     return True
             board[r, c] = 0  # undo
+            steps.append(Step(r, c, 0))
 
     return False
+
+
+board = load_boards_csv("./puzzles/hard.csv")[0]
+domains = initialize_domains(board)
+steps = []
+if solve_forward_check(board, domains, steps):
+    print(steps)

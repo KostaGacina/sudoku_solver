@@ -21,6 +21,7 @@ board_sets = [
     ("hard", hard_boards),
 ]
 results = []
+
 all_steps = []
 
 
@@ -48,25 +49,27 @@ def benchmark_ac3_backtrack(boards, label=""):
 
 def benchmark_backtracking(boards, label=""):
     times = []
-    steps = []
     for board in boards:
+        steps = []
         start = time.time()
         solve_backtrack(board, steps)
         end = time.time()
         times.append(end - start)
+        all_steps.append(steps)
     avg = np.mean(times)
     results.append((label, "Backtracking", f"{avg:.6f}"))
-    all_steps.append(steps)
 
 
 def benchmark_forward_check(boards, label=""):
     times = []
     for board in boards:
+        steps = []
         domains = initialize_domains(board)
         start = time.time()
-        solve_forward_check(board, domains)
+        solve_forward_check(board, domains, steps)
         end = time.time()
         times.append(end - start)
+        all_steps.append(steps)
     avg = np.mean(times)
     results.append((label, "Forward Check", f"{avg:.6f}"))
 
