@@ -4,12 +4,12 @@ import time
 import numpy as np
 from colorama import Fore, Style
 from tabulate import tabulate
-from ac3 import AC3, initialize_domains
 
+from ac3 import AC3, initialize_domains
+from ai_solver import solve_ac3_backtrack, solve_ac3_forward
 from board import load_boards_csv
 from solver_backtracking import solve_backtrack, solve_backtrack_domains
 from solver_forward_check import initialize_domains, solve_forward_check
-from ai_solver import solve_ac3_backtrack, solve_ac3_forward
 
 easy_boards = load_boards_csv("./puzzles/easy.csv")
 medium_boards = load_boards_csv("./puzzles/medium.csv")
@@ -21,6 +21,8 @@ board_sets = [
     ("hard", hard_boards),
 ]
 results = []
+all_steps = []
+
 
 def benchmark_ac3_forward(boards, label=""):
     times = []
@@ -42,6 +44,8 @@ def benchmark_ac3_backtrack(boards, label=""):
         times.append(end - start)
     avg = np.mean(times)
     results.append((label, "AC3 + Backtracking", f"{avg:.6f}"))
+
+
 def benchmark_backtracking(boards, label=""):
     times = []
     steps = []
@@ -78,9 +82,7 @@ for label, boards in board_sets:
     threads.append(
         threading.Thread(target=benchmark_ac3_backtrack, args=(boards, label))
     )
-    threads.append(
-        threading.Thread(target=benchmark_ac3_forward, args=(boards, label))
-    )
+    threads.append(threading.Thread(target=benchmark_ac3_forward, args=(boards, label)))
 
 for thread in threads:
     thread.start()
