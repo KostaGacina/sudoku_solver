@@ -28,8 +28,9 @@ all_steps = []
 def benchmark_ac3_forward(boards, label=""):
     times = []
     for board in boards:
+        steps = []
         start = time.time()
-        solve_ac3_forward(board)
+        solve_ac3_forward(board, steps)
         end = time.time()
         times.append(end - start)
     avg = np.mean(times)
@@ -39,8 +40,9 @@ def benchmark_ac3_forward(boards, label=""):
 def benchmark_ac3_backtrack(boards, label=""):
     times = []
     for board in boards:
+        steps = []
         start = time.time()
-        solve_ac3_backtrack(board)
+        solve_ac3_backtrack(board, steps)
         end = time.time()
         times.append(end - start)
     avg = np.mean(times)
@@ -72,6 +74,20 @@ def benchmark_forward_check(boards, label=""):
         all_steps.append(steps)
     avg = np.mean(times)
     results.append((label, "Forward Check", f"{avg:.6f}"))
+
+
+def get_benchmark_data():
+    """Return benchmark results in a structured format"""
+    global results
+
+    # Convert results to dictionary format
+    benchmark_data = {}
+    for difficulty, algorithm, avg_time in results:
+        if algorithm not in benchmark_data:
+            benchmark_data[algorithm] = {}
+        benchmark_data[algorithm][difficulty] = float(avg_time)
+
+    return benchmark_data
 
 
 threads = []

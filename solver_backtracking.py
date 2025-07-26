@@ -23,8 +23,8 @@ def solve_backtrack(board: np.ndarray, steps: list[Step]) -> bool:
 
     return False
 
-def solve_backtrack_domains(board: np.ndarray, domains: dict):
-    unassigned = [(cell, values) for cell, values in domains.items() if board[cell[0]][cell[1]] == 0]
+def solve_backtrack_domains(board: np.ndarray, domains: dict, steps: list[Step]):
+    unassigned = [(cell, values) for cell, values in domains.items() if board[cell[0], cell[1]] == 0]
     if not unassigned:
         return True  
 
@@ -33,14 +33,16 @@ def solve_backtrack_domains(board: np.ndarray, domains: dict):
 
     for value in sorted(values):
         if is_valid(board, row, col, value):
-            board[row][col] = value
+            board[row, col] = value
+            steps.append(Step(row, col, value))
 
             new_domains = {k: set(v) for k, v in domains.items()}
             new_domains[cell] = {value}
 
-            if solve_backtrack_domains(board, new_domains):
+            if solve_backtrack_domains(board, new_domains, steps):
                 return True
 
-            board[row][col] = 0  
+            board[row, col] = 0
+            steps.append(Step(row, col, 0))
 
     return False
