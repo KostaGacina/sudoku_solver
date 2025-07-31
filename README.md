@@ -5,3 +5,11 @@
 - is_valid(board, row, col, num): Proverava da li 'num' može biti stavljen na mesto (row,col)
 - save_board(board, filename): Čuva tablu u fajl
 - get_empty_cells(board): Vraća listu praznih polja
+
+## To install and start:
+
+1. clone this repo
+2. python -m venv venv
+3. source ./venv/bin/activate
+4. pip install -r ./requirements.txt
+5. python ./main.py
