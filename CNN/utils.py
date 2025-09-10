@@ -29,8 +29,13 @@ def single_predict_accuracy(model, puzzle, true_solution, print=False):
 
     pred = model.predict(puzzle_input, verbose=0)
     predicted_solution = np.argmax(pred[0], axis=-1) + 1
+    final_solution = np.array(puzzle, copy=True)
+    for i in range(9):
+        for j in range(9):
+            if puzzle[i][j] == 0:
+                final_solution[i][j] = predicted_solution[i][j]
 
-    return evaluate_solution(predicted_solution, puzzle, true_solution, print_boards=print)
+    return evaluate_solution(final_solution, puzzle, true_solution, print_boards=print)
 
 
 def iterative_sudoku_solver(model, puzzle, max_iters=50, verbose=False):
