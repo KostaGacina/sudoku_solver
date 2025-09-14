@@ -75,6 +75,37 @@ def load_boards_csv(filename):
 
     return np.array(boards)
 
+import numpy as np
+
+def is_solution_valid(board: np.ndarray) -> bool:
+    """Check if a completed Sudoku board is valid."""
+    # Must be 9x9
+    if board.shape != (9, 9):
+        return False
+
+    # 1) Check no zeros remain
+    if np.any(board == 0):
+        return False
+
+    # Expected set of digits
+    digits = set(range(1, 10))
+
+    # 2) Check rows and columns
+    for i in range(9):
+        if set(board[i, :]) != digits:  # row
+            return False
+        if set(board[:, i]) != digits:  # column
+            return False
+
+    # 3) Check 3x3 subgrids
+    for r in range(0, 9, 3):
+        for c in range(0, 9, 3):
+            block = board[r:r+3, c:c+3].flatten()
+            if set(block) != digits:
+                return False
+
+    return True
+
 
 # board = load_boards_csv("./puzzles/easy.csv")
 # print_board(board[0])

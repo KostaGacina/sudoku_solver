@@ -3,3 +3,4 @@ __pycache__/
 .env
 *.swp
 venv/
+wetransfer_sudoku_cnn_512_filters-3-keras_2025-09-09_1044/

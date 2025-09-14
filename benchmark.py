@@ -10,6 +10,11 @@ from ai_solver import solve_ac3_backtrack, solve_ac3_forward
 from board import load_boards_csv
 from solver_backtracking import solve_backtrack, solve_backtrack_domains
 from solver_forward_check import initialize_domains, solve_forward_check
+from cnn_forward_check import solve_cnn_forward_check
+from keras import saving
+
+# model = saving.load_model("wetransfer_sudoku_cnn_512_filters-3-keras_2025-09-09_1044\sudoku_cnn_512_filters (3).keras")
+model = saving.load_model("wetransfer_sudoku_cnn_512_filters-3-keras_2025-09-09_1044\sudoku_cnn_256_filters (1).keras")
 
 easy_boards = load_boards_csv("./puzzles/easy.csv")
 medium_boards = load_boards_csv("./puzzles/medium.csv")
@@ -75,6 +80,17 @@ def benchmark_forward_check(boards, label=""):
     avg = np.mean(times)
     results.append((label, "Forward Check", f"{avg:.6f}"))
 
+def benchmark_cnn_forward_check(boards, label=""):
+    times = []
+    for board in boards:
+        steps = []
+        start = time.time()
+        solve_cnn_forward_check(model, board)
+        end = time.time()
+        times.append(end - start)
+        all_steps.append(steps)
+    avg = np.mean(times)
+    results.append((label, "forward check + CNN", f"{avg:.6f}"))
 
 def get_benchmark_data():
     """Return benchmark results in a structured format"""
@@ -89,7 +105,6 @@ def get_benchmark_data():
 
     return benchmark_data
 
-
 threads = []
 for label, boards in board_sets:
     threads.append(
@@ -102,6 +117,8 @@ for label, boards in board_sets:
         threading.Thread(target=benchmark_ac3_backtrack, args=(boards, label))
     )
     threads.append(threading.Thread(target=benchmark_ac3_forward, args=(boards, label)))
+    # cnn + forward check and MRV needs to be benchmarked alone, because CNN uses multiple threads
+    # threads.append(threading.Thread(target=benchmark_cnn_forward_check, args=(boards, label)))
 
 for thread in threads:
     thread.start()
