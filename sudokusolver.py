@@ -71,7 +71,7 @@ def CNNModelMenu():
         print("Opcije:")
         print("1. CNN 256 Filters")
         print("2. CNN 512 Filters")
-        choice = input("Odaberite CNN model")
+        choice = input("Odaberite CNN model\n")
         if choice == '1':
             model = LoadCNNModel("sudoku_cnn_256_filters.keras")
             SolverCNNBacktrack = hb1(os.path.join(cwd,"CNN","model","sudoku_cnn_256_filters.keras"))
@@ -95,7 +95,7 @@ def LoadSudokuMethod(SolverCNNBacktrack, SolverCNNAC3Backtrack):
         print("4, CNN + AC3 + Backtrack")
         print("5. Forward Check")
         print("6. CNN + Forward Check")
-        choice = input("Odaberite CNN model")
+        choice = input("Odaberite CNN model\n")
         if choice == '1':
             return solve_backtrack, "Backtrack only"
         elif choice == '2':
@@ -114,8 +114,12 @@ def Menu():
 
     solver = GeneralSudokuSolver(None,None,None,None)
     solver.model = LoadCNNModel("sudoku_cnn_512_filters.keras")
+    default_puzzle = "puzla.csv"
+    solver.board = load_board(f"puzzle_solve/{default_puzzle}")
     SolverCNNBacktrack = hb1(os.path.join(cwd,"CNN","model","sudoku_cnn_512_filters.keras"))
     SolverCNNAC3Backtrack = hb2(os.path.join(cwd,"CNN","model","sudoku_cnn_512_filters.keras"))
+    print("Default izabrani model je CNN 512 filtera.")
+    print("Default izabranu puzlu mozete videti pomocu opcije 4.")
     while True:
         print("Izaberitu jednu od ponuđenih opcija:")
         print("1. Izaberite CNN model za rešavanje sudoku-a")
@@ -124,13 +128,13 @@ def Menu():
         print("3. Odaberi metodu rešavanja")
         print("4. Prikaži trenutnu tablu (nerešenu) !")
         print("5. Izadji iz programa")
-        choice = input("Izaberite opciju: ").strip()
+        choice = input("Izaberite opciju: \n").strip()
         if choice == '1':
             solver.model, SolverCNNBacktrack, SolverCNNAC3Backtrack, solver.model_name = CNNModelMenu()
         elif choice == '2':
             solver.board = LoadSudokuTable()
         elif choice == '3':
-            if solver.board != None:
+            if solver.board is not None:
                 solver.method, solver.name = LoadSudokuMethod(SolverCNNBacktrack, SolverCNNAC3Backtrack)
                 solver.solve_table()
                 solver.method = None
@@ -138,7 +142,7 @@ def Menu():
             else:
                 print("Morate prvo učitati sudoku!")
         elif choice == '4':
-            if solver.board != None:
+            if solver.board is not None:
                 print_board(solver.board)
             else:
                 print("Morate prvo učitati sudoku!")
