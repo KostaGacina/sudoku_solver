@@ -10,7 +10,7 @@ from ai_solver import solve_ac3_backtrack, solve_ac3_forward
 from board import load_boards_csv
 from solver_backtracking import solve_backtrack, solve_backtrack_domains
 from solver_forward_check import initialize_domains, solve_forward_check
-from cnn_forward_check import solve_cnn_forward_check
+from solver_cnn_forward_check import solve_cnn_forward_check
 from keras import saving
 
 # model = saving.load_model("wetransfer_sudoku_cnn_512_filters-3-keras_2025-09-09_1044\sudoku_cnn_512_filters (3).keras")

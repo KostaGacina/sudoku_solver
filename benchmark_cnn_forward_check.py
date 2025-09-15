@@ -1,4 +1,4 @@
-from cnn_forward_check import solve_cnn_forward_check, print_cnn_suggestions
+from solver_cnn_forward_check import solve_cnn_forward_check, print_cnn_suggestions
 import time
 from board import load_boards_csv, print_board, is_solution_valid
 import numpy as np
