@@ -125,16 +125,24 @@ for thread in threads:
 for thread in threads:
     thread.join()
 
-# Sort and print results
-difficulty_order = {"easy": 0, "medium": 1, "hard": 2}
-results.sort(key=lambda x: (difficulty_order[x[0]], x[1]))
+benchmark_data = get_benchmark_data()
 
+# Build pivoted rows: algo | easy | medium | hard
+pivoted_results = []
+for algorithm, times in benchmark_data.items():
+    pivoted_results.append([
+        algorithm,
+        times.get("easy", None),
+        times.get("medium", None),
+        times.get("hard", None),
+    ])
 
 print(Fore.CYAN + "\nSUDOKU SOLVER BENCHMARK RESULTS\n" + Style.RESET_ALL)
 print(
     tabulate(
-        results,
-        headers=["Difficulty", "Algorithm", "Avg Time (s)"],
+        pivoted_results,
+        headers=["Algorithm", "Easy", "Medium", "Hard"],
         tablefmt="fancy_grid",
+        floatfmt=".6f",  # format floats nicely
     )
 )
