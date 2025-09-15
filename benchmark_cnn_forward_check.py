@@ -61,6 +61,8 @@ print(f"easy: {np.mean(results_512["easy"][0])}")
 print(f"medium: {np.mean(results_512["medium"][0])}")
 print(f"hard: {np.mean(results_512["hard"][0])}")
 
+# ----------- GRAPHS -----------
+
 difficulties = ["easy", "medium", "hard"]
 
 # Example for model_256
@@ -80,6 +82,7 @@ ax.set_ylabel("Time (s)")
 ax.set_title("Model 256 - Average Solve & CNN Time")
 ax.legend()
 
+plt.grid(True)
 plt.savefig("./static/times256.png", dpi=300, bbox_inches="tight")  # high-quality PNG
 plt.show()
 
@@ -99,7 +102,7 @@ ax.set_xticklabels(difficulties)
 ax.set_ylabel("Time (s)")
 ax.set_title("Model 512 - Average Solve & CNN Time")
 ax.legend()
-
+plt.grid(True)
 plt.savefig("./static/times512.png", dpi=300, bbox_inches="tight")
 plt.show()
 
@@ -122,9 +125,38 @@ def strip_plot(model_name, results):
     plt.xticks([1, 2, 3], difficulties)
     plt.ylabel("Solve time (s)")
     plt.title(f"{model_name} - Total Solve Times (with means)")
+    plt.grid(True)
     plt.savefig(f"./static/strip{model_name}.png", dpi=300, bbox_inches="tight")  # high-quality PNG
     plt.show()
 
 # Plot for both models
 strip_plot("Model 256", results_256)
 strip_plot("Model 512", results_512)
+
+# PLOT TO COMPARE PURE FORWARD CHECKING AGAINST CNN + FORWARD CHECKING
+pure_forward_check_times = [0.029735, 0.148340, 0.444237]
+cnn256_times = [np.mean(results_256[label][0]) for label in difficulties]
+cnn512_times = [np.mean(results_512[label][0]) for label in difficulties]
+
+# Positions for groups
+x = np.arange(len(difficulties))
+width = 0.25  # width of each bar
+
+fig, ax = plt.subplots(figsize=(8, 6))
+
+# Bars
+rects1 = ax.bar(x - width, pure_forward_check_times, width, label="Pure FC", color="skyblue")
+rects2 = ax.bar(x, cnn256_times, width, label="CNN (256) + FC", color="orange")
+rects3 = ax.bar(x + width, cnn512_times, width, label="CNN (512) + FC", color="green")
+
+# Labels & styling
+ax.set_xticks(x)
+ax.set_xticklabels(difficulties)
+ax.set_ylabel("Time (s)")
+ax.set_title("Comparison of Solve Times: Pure FC vs CNN+FC")
+ax.legend()
+
+plt.tight_layout()
+plt.grid(True)
+plt.savefig("./static/fc_cnn_comparison.png", dpi=300, bbox_inches="tight")
+plt.show()
