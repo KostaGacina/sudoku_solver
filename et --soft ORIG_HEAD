@@ -1,0 +1,17 @@
+[33mcc5ab12[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Merge pull request #3 from KostaGacina/solver/forward-check
+[33mcad2832[m[33m ([m[1;31morigin/solver/forward-check[m[33m)[m Add: track steps taken to solve boards using forward check
+[33m1346661[m Fix: missing variable
+[33m9daf397[m Merge pull request #2 from KostaGacina/solver/backtracking
+[33m56593a6[m[33m ([m[1;31morigin/solver/backtracking[m[33m)[m Merge branch 'main' into solver/backtracking
+[33m87a281c[m Fix: dont print steps
+[33m6a9bc26[m Add: track steps taken to solve boards using simple backtracking algo
+[33meffe2d4[m Added new AI Enhanced solver techniques
+[33ma025053[m Implemented AC3 preproccesing as a part of AI Enhancement feature.
+[33mb7f5df5[m Merge pull request #1 from KostaGacina/solver/backtracking
+[33m8a0e879[m Add: new requirements
+[33m061191e[m Add new Sudoku benchmark with tabulated output
+[33m8bf46dd[m Add: forward checking and MRV heuristics solver
+[33m9be1fa0[m Add: function to load boards from csv files
+[33maff68ec[m Add: backtracking sudoku solver
+[33m4acf8c6[m Add: get first empty cell function
+[33m65420b5[m Initial commit: Sudoku core logic
