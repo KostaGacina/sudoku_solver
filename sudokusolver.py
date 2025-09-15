@@ -61,7 +61,7 @@ def LoadSudokuTable():
         print("Primer formata puzle se nalazi u default puzzle_solve/puzla.csv")
         tabla = input("Unesite naziv fajla koji sadrzi sudoku puzlu u CSV formatu:\n")
         try:
-            board = load_board(f"puzzles/{tabla}")
+            board = load_board(f"puzzle_solve/{tabla}")
             print(board)
             return board
         except Exception as e:
