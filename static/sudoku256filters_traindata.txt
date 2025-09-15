@@ -1,0 +1,32 @@
+Epoch 1/15
+3125/3125 - 234s - 75ms/step - categorical_accuracy: 0.5248 - loss: 1.2276 - val_categorical_accuracy: 0.5894 - val_loss: 1.0482
+Epoch 2/15
+3125/3125 - 256s - 82ms/step - categorical_accuracy: 0.6511 - loss: 0.8471 - val_categorical_accuracy: 0.6621 - val_loss: 0.8108
+Epoch 3/15
+3125/3125 - 268s - 86ms/step - categorical_accuracy: 0.6931 - loss: 0.7143 - val_categorical_accuracy: 0.7051 - val_loss: 0.6773
+Epoch 4/15
+3125/3125 - 255s - 82ms/step - categorical_accuracy: 0.7244 - loss: 0.6312 - val_categorical_accuracy: 0.7321 - val_loss: 0.6070
+Epoch 5/15
+3125/3125 - 262s - 84ms/step - categorical_accuracy: 0.7479 - loss: 0.5707 - val_categorical_accuracy: 0.7519 - val_loss: 0.5561
+Epoch 6/15
+3125/3125 - 268s - 86ms/step - categorical_accuracy: 0.7668 - loss: 0.5238 - val_categorical_accuracy: 0.7691 - val_loss: 0.5123
+Epoch 7/15
+3125/3125 - 255s - 82ms/step - categorical_accuracy: 0.7831 - loss: 0.4840 - val_categorical_accuracy: 0.7831 - val_loss: 0.4796
+Epoch 8/15
+3125/3125 - 262s - 84ms/step - categorical_accuracy: 0.7977 - loss: 0.4495 - val_categorical_accuracy: 0.7944 - val_loss: 0.4536
+Epoch 9/15
+3125/3125 - 268s - 86ms/step - categorical_accuracy: 0.8099 - loss: 0.4210 - val_categorical_accuracy: 0.8020 - val_loss: 0.4379
+Epoch 10/15
+3125/3125 - 256s - 82ms/step - categorical_accuracy: 0.8193 - loss: 0.3997 - val_categorical_accuracy: 0.8157 - val_loss: 0.4036
+Epoch 11/15
+3125/3125 - 262s - 84ms/step - categorical_accuracy: 0.8278 - loss: 0.3798 - val_categorical_accuracy: 0.8207 - val_loss: 0.3925
+Epoch 12/15
+3125/3125 - 218s - 70ms/step - categorical_accuracy: 0.8335 - loss: 0.3669 - val_categorical_accuracy: 0.8213 - val_loss: 0.3959
+Epoch 13/15
+3125/3125 - 263s - 84ms/step - categorical_accuracy: 0.8385 - loss: 0.3561 - val_categorical_accuracy: 0.8285 - val_loss: 0.3751
+Epoch 14/15
+3125/3125 - 269s - 86ms/step - categorical_accuracy: 0.8425 - loss: 0.3480 - val_categorical_accuracy: 0.7659 - val_loss: 0.8066
+Epoch 15/15
+3125/3125 - 255s - 82ms/step - categorical_accuracy: 0.8471 - loss: 0.3374 - val_categorical_accuracy: 0.8329 - val_loss: 0.3642 
+
+256 FILTERA CNN ! SUDOKU !
